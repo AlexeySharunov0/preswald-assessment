@@ -1,0 +1,20 @@
+[project]
+title = "Анализ Iris"
+version = "0.1.0"
+port = 8501
+slug = "iris-analysis"
+entrypoint = "script.py"
+
+[branding]
+name = "Iris Analyzer"
+logo = "images/logo.png"
+favicon = "images/favicon.ico"
+primaryColor = "#F89613"
+
+[data.iris_csv]
+type = "csv"
+path = "data/iris.csv"
+
+[logging]
+level = "INFO"
+format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
