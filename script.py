@@ -2,46 +2,35 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-# Настройка страницы (заголовок, favicon, цветовая схема)
-st.set_page_config(
-    page_title="Анализ данных Iris",  # Заголовок страницы
-    page_icon="images/favicon.ico",  # Путь к favicon
-    layout="wide",  # Опционально, если хочешь, чтобы интерфейс был вширину
-    initial_sidebar_state="expanded"  # Открытый sidebar по умолчанию
-)
+# Title of the app
+st.title("Iris Data Analysis")
 
-# Логотип в sidebar
-st.sidebar.image("images/logo.png", width=150)
-
-# Заголовок
-st.title("Анализ данных Iris")
-
-# Загрузка данных
+# Load the dataset
 df = pd.read_csv("data/Iris.csv")
 
-# Проверка загрузки
+# Check if data is loaded
 if df.empty:
-    st.warning("Не удалось загрузить данные.")
+    st.warning("Failed to load data.")
     st.stop()
 
-# Показываем таблицу
-st.subheader("Первые строки таблицы")
+# Display first rows of the dataset
+st.subheader("First rows of the dataset")
 st.dataframe(df.head())
 
-# Слайдер для фильтра
-threshold = st.slider("Минимальная длина чашелистика (SepalLengthCm)", 4.0, 8.0, 5.0)
+# Slider for filtering by sepal length
+threshold = st.slider("Minimum Sepal Length (cm)", 4.0, 8.0, 5.0)
 
-# Фильтрация
+# Filter data based on slider value
 filtered_df = df[df["SepalLengthCm"] >= threshold]
 
-# График
-st.subheader("Фильтрованные данные")
+# Scatter plot of filtered data
+st.subheader("Filtered Data Visualization")
 fig = px.scatter(
     filtered_df,
     x="SepalLengthCm",
     y="SepalWidthCm",
     color="Species",
-    title="Sepal Length vs Width",
-    labels={"SepalLengthCm": "Sepal Length", "SepalWidthCm": "Sepal Width"},
+    title="Sepal Length vs Sepal Width",
+    labels={"SepalLengthCm": "Sepal Length (cm)", "SepalWidthCm": "Sepal Width (cm)"},
 )
 st.plotly_chart(fig)
